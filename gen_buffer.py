@@ -12,5 +12,5 @@ res = res.rstrip()
 res = res.rstrip(',')
 res = "unsigned int vncbuffer_len = "  + str(len(dll)) + ";\nunsigned char vncbuffer[] = \n{" + res + "};"
 
-print res
+print(res)
 
