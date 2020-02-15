@@ -232,7 +232,7 @@ class VNCEXEC:
             pass
         elif contype == 'reverse':
             if bc_ip is None:
-                print 'Ip addr required for reverse connection'
+                print('Ip addr required for reverse connection')
                 sys.exit(1)
             else:
                 self.launch_string += '-IpAddress ' + bc_ip 
@@ -361,17 +361,17 @@ class RemoteShell(cmd.Cmd):
         os.system(s)
 
     def do_help(self, line):
-        print """
+        print("""
  lcd {path}                 - changes the current local directory to {path}
  exit                       - terminates the server process (and this session)
  put {src_file, dst_path}   - uploads a local file to the dst_path (dst_path = default current directory)
  get {file}                 - downloads pathname to the current local dir 
  ! {cmd}                    - executes a local shell cmd
-""" 
+""") 
 
     def do_lcd(self, s):
         if s == '':
-            print os.getcwd()
+            print(os.getcwd())
         else:
             try:
                 os.chdir(s)
@@ -425,7 +425,7 @@ class RemoteShell(cmd.Cmd):
     def do_cd(self, s):
         self.execute_remote('cd ' + s)
         if len(self.__outputBuffer.strip('\r\n')) > 0:
-            print self.__outputBuffer
+            print(self.__outputBuffer)
             self.__outputBuffer = ''
         else:
             self.__pwd = ntpath.normpath(ntpath.join(self.__pwd, s))
@@ -441,7 +441,7 @@ class RemoteShell(cmd.Cmd):
             self.execute_remote(line)
             if len(self.__outputBuffer.strip('\r\n')) > 0: 
                 # Something went wrong
-                print self.__outputBuffer
+                print(self.__outputBuffer)
                 self.__outputBuffer = ''
             else:
                 # Drive valid, now we should get the current path
