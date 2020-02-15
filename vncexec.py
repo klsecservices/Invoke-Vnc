@@ -17,7 +17,7 @@ import base64
 import os.path
 import os
 import sys
-import StringIO
+from io import StringIO
 import time
 import logging
 import argparse
@@ -25,8 +25,8 @@ import cmd
 import ntpath
 import uuid
 import string
-import SimpleHTTPServer
-import SocketServer
+import http.server
+import socketserver
 import threading
 import tempfile
 
@@ -285,7 +285,7 @@ class VNCEXEC:
                 time.sleep(10)
                 self.smbConnection.deleteFile(self.__share, self.full_file_path)
                 logging.info("File " + self.__share + self.full_file_path + " deleted")
-            except  (Exception, KeyboardInterrupt), e:
+            except  (Exception, KeyboardInterrupt) as e:
                 #import traceback
                 #traceback.print_exc()
                 logging.error(str(e))
@@ -326,7 +326,7 @@ class VNCEXEC:
                 while True:
                     pass
                 dcom.disconnect()
-            except (Exception, KeyboardInterrupt), e:
+            except (Exception, KeyboardInterrupt) as e:
                 #import traceback
                 #traceback.print_exc()
                 logging.error(str(e))
@@ -375,7 +375,7 @@ class RemoteShell(cmd.Cmd):
         else:
             try:
                 os.chdir(s)
-            except Exception, e:
+            except Exception as e:
                 logging.error(str(e))
 
     def do_get(self, src_path):
@@ -388,7 +388,7 @@ class RemoteShell(cmd.Cmd):
             logging.info("Downloading %s\\%s" % (drive, tail))
             self.__transferClient.getFile(drive[:-1]+'$', tail, fh.write)
             fh.close()
-        except Exception, e:
+        except Exception as e:
             logging.error(str(e))
             os.remove(filename)
             pass
@@ -412,7 +412,7 @@ class RemoteShell(cmd.Cmd):
             logging.info("Uploading %s to %s" % (src_file, pathname))
             self.__transferClient.putFile(drive[:-1]+'$', tail, fh.read)
             fh.close()
-        except Exception, e:
+        except Exception as e:
             logging.critical(str(e))
             pass
 
@@ -466,7 +466,7 @@ class RemoteShell(cmd.Cmd):
             try:
                 self.__transferClient.getFile(self.__share, self.__output, output_callback)
                 break
-            except Exception, e:
+            except Exception as e:
                 if str(e).find('STATUS_SHARING_VIOLATION') >=0:
                     # Output not finished, let's wait
                     time.sleep(1)
@@ -650,7 +650,7 @@ def main():
         executer.run(address, options.method, options.bc_ip, options.contype, options.vncpass, options.vncport, options.invoke_vnc_path, options.httpport)
 
 
-    except (Exception, KeyboardInterrupt), e:
+    except (Exception, KeyboardInterrupt) as e:
         #import traceback
         #print traceback.print_exc()
         logging.error(str(e))
